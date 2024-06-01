@@ -901,8 +901,6 @@ async function insertWebsIfNotExists(webToInsert) {
             const savedWeb = await newWeb.save();
 
             websData.push(savedWeb._id)
-        } else {
-            console.log("La web", webToInsert.name, "ya existe en la base de datos.");
         }
     } catch (error) {
         console.log("ERROR añadiendo web:", error);
@@ -919,8 +917,6 @@ async function insertCategoryIfNotExists(categoryData) {
             const savedCategory = await newCategory.save();
 
             await insertProducts(categoryData, savedCategory._id)
-        } else {
-            console.log("La categoría ", categoryData.name, " ya existe en la base de datos.");
         }
     } catch (error) {
         console.log("ERROR añadiendo categoría:", error);
@@ -954,8 +950,6 @@ async function insertCountryIfNotExists(country) {
         if (!existingCountry) {
             const newCountry = new Country(country);
             await newCountry.save();
-        } else {
-            console.log("El país ", existingCountry.name, " ya existe en la base de datos.");
         }
     } catch (error) {
         console.log("ERROR añadiendo web:", error);
