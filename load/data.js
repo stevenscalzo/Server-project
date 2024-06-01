@@ -1,6 +1,200 @@
 const Category = require(__dirname + '/../models/category.js');
 const Product = require(__dirname + '/../models/product.js');
 const Web = require(__dirname + '/../models/web.js');
+const Country = require(__dirname + '/../models/country.js');
+
+const countries = [
+    { name: "Afganistán" },
+    { name: "Albania" },
+    { name: "Alemania" },
+    { name: "Andorra" },
+    { name: "Angola" },
+    { name: "Antigua y Barbuda" },
+    { name: "Arabia Saudita" },
+    { name: "Argelia" },
+    { name: "Argentina" },
+    { name: "Armenia" },
+    { name: "Australia" },
+    { name: "Austria" },
+    { name: "Azerbaiyán" },
+    { name: "Bahamas" },
+    { name: "Bangladés" },
+    { name: "Baréin" },
+    { name: "Barbados" },
+    { name: "Bélgica" },
+    { name: "Belice" },
+    { name: "Benín" },
+    { name: "Bielorrusia" },
+    { name: "Birmania" },
+    { name: "Bolivia" },
+    { name: "Bosnia y Herzegovina" },
+    { name: "Botsuana" },
+    { name: "Brasil" },
+    { name: "Brunéi" },
+    { name: "Bulgaria" },
+    { name: "Burkina Faso" },
+    { name: "Burundi" },
+    { name: "Bután" },
+    { name: "Cabo Verde" },
+    { name: "Camboya" },
+    { name: "Camerún" },
+    { name: "Canadá" },
+    { name: "Catar" },
+    { name: "Chad" },
+    { name: "Chile" },
+    { name: "China" },
+    { name: "Chipre" },
+    { name: "Ciudad del Vaticano" },
+    { name: "Colombia" },
+    { name: "Comoras" },
+    { name: "Congo" },
+    { name: "Corea del Norte" },
+    { name: "Corea del Sur" },
+    { name: "Costa Rica" },
+    { name: "Croacia" },
+    { name: "Cuba" },
+    { name: "Dinamarca" },
+    { name: "Dominica" },
+    { name: "Ecuador" },
+    { name: "Egipto" },
+    { name: "El Salvador" },
+    { name: "Emiratos Árabes Unidos" },
+    { name: "Eritrea" },
+    { name: "Eslovaquia" },
+    { name: "Eslovenia" },
+    { name: "España" },
+    { name: "Estados Unidos" },
+    { name: "Estonia" },
+    { name: "Esuatini" },
+    { name: "Etiopía" },
+    { name: "Filipinas" },
+    { name: "Finlandia" },
+    { name: "Fiyi" },
+    { name: "Francia" },
+    { name: "Gabón" },
+    { name: "Gambia" },
+    { name: "Georgia" },
+    { name: "Ghana" },
+    { name: "Granada" },
+    { name: "Grecia" },
+    { name: "Guatemala" },
+    { name: "Guinea" },
+    { name: "Guinea-Bisáu" },
+    { name: "Guinea Ecuatorial" },
+    { name: "Guyana" },
+    { name: "Haití" },
+    { name: "Honduras" },
+    { name: "Hungría" },
+    { name: "India" },
+    { name: "Indonesia" },
+    { name: "Irak" },
+    { name: "Irán" },
+    { name: "Irlanda" },
+    { name: "Islandia" },
+    { name: "Islas Marshall" },
+    { name: "Israel" },
+    { name: "Italia" },
+    { name: "Jamaica" },
+    { name: "Japón" },
+    { name: "Jordania" },
+    { name: "Kazajistán" },
+    { name: "Kenia" },
+    { name: "Kirguistán" },
+    { name: "Kiribati" },
+    { name: "Kuwait" },
+    { name: "Laos" },
+    { name: "Lesoto" },
+    { name: "Letonia" },
+    { name: "Líbano" },
+    { name: "Liberia" },
+    { name: "Libia" },
+    { name: "Liechtenstein" },
+    { name: "Lituania" },
+    { name: "Luxemburgo" },
+    { name: "Madagascar" },
+    { name: "Malasia" },
+    { name: "Malaui" },
+    { name: "Maldivas" },
+    { name: "Malí" },
+    { name: "Malta" },
+    { name: "Marruecos" },
+    { name: "Mauricio" },
+    { name: "Mauritania" },
+    { name: "México" },
+    { name: "Micronesia" },
+    { name: "Moldavia" },
+    { name: "Mónaco" },
+    { name: "Mongolia" },
+    { name: "Montenegro" },
+    { name: "Mozambique" },
+    { name: "Namibia" },
+    { name: "Nauru" },
+    { name: "Nepal" },
+    { name: "Nicaragua" },
+    { name: "Níger" },
+    { name: "Nigeria" },
+    { name: "Noruega" },
+    { name: "Nueva Zelanda" },
+    { name: "Omán" },
+    { name: "Países Bajos" },
+    { name: "Pakistán" },
+    { name: "Palaos" },
+    { name: "Panamá" },
+    { name: "Papúa Nueva Guinea" },
+    { name: "Paraguay" },
+    { name: "Perú" },
+    { name: "Polonia" },
+    { name: "Portugal" },
+    { name: "Reino Unido" },
+    { name: "República Centroafricana" },
+    { name: "República Checa" },
+    { name: "República Dominicana" },
+    { name: "Ruanda" },
+    { name: "Rumanía" },
+    { name: "Rusia" },
+    { name: "Samoa" },
+    { name: "San Cristóbal y Nieves" },
+    { name: "San Marino" },
+    { name: "San Vicente y las Granadinas" },
+    { name: "Santa Lucía" },
+    { name: "Santo Tomé y Príncipe" },
+    { name: "Senegal" },
+    { name: "Serbia" },
+    { name: "Seychelles" },
+    { name: "Sierra Leona" },
+    { name: "Singapur" },
+    { name: "Siria" },
+    { name: "Somalia" },
+    { name: "Sri Lanka" },
+    { name: "Sudáfrica" },
+    { name: "Sudán" },
+    { name: "Sudán del Sur" },
+    { name: "Suecia" },
+    { name: "Suiza" },
+    { name: "Surinam" },
+    { name: "Tailandia" },
+    { name: "Tanzania" },
+    { name: "Tayikistán" },
+    { name: "Timor Oriental" },
+    { name: "Togo" },
+    { name: "Tonga" },
+    { name: "Trinidad y Tobago" },
+    { name: "Túnez" },
+    { name: "Turkmenistán" },
+    { name: "Turquía" },
+    { name: "Tuvalu" },
+    { name: "Ucrania" },
+    { name: "Uganda" },
+    { name: "Uruguay" },
+    { name: "Uzbekistán" },
+    { name: "Vanuatu" },
+    { name: "Venezuela" },
+    { name: "Vietnam" },
+    { name: "Yemen" },
+    { name: "Yibuti" },
+    { name: "Zambia" },
+    { name: "Zimbabue" }
+];
 
 //
 let websData = [];
@@ -726,7 +920,7 @@ async function insertCategoryIfNotExists(categoryData) {
 
             await insertProducts(categoryData, savedCategory._id)
         } else {
-            console.log("La categoría", categoryData.name, "ya existe en la base de datos.");
+            console.log("La categoría ", categoryData.name, " ya existe en la base de datos.");
         }
     } catch (error) {
         console.log("ERROR añadiendo categoría:", error);
@@ -752,9 +946,23 @@ async function insertProducts(categoryData, id) {
     }
 };
 
+// Función para insertar una categoría si no existe
+async function insertCountryIfNotExists(country) {
+    try {
+        const existingCountry = await Country.findOne({ name: country.name });
+
+        if (!existingCountry) {
+            const newCountry = new Country(country);
+            await newCountry.save();
+        } else {
+            console.log("El país ", existingCountry.name, " ya existe en la base de datos.");
+        }
+    } catch (error) {
+        console.log("ERROR añadiendo web:", error);
+    }
+};
+
 // Insertar categorías y productos
-//await websToInsert.forEach(insertWebsIfNotExists);
-//await categoriesData.forEach(insertCategoryIfNotExists);
 
 async function setData() {
     for await (const web of websToInsert) {
@@ -763,6 +971,10 @@ async function setData() {
 
     for await (const categories of categoriesData) {
         await insertCategoryIfNotExists(categories);
+    }
+
+    for await (const country of countries) {
+        await insertCountryIfNotExists(country);
     }
 }
 

@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 let addressSchema = new mongoose.Schema({
     country: {
-        type: String,
-        required: true,
-        trim: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'country',
+        required: true
     }, 
     city: {
         type: String,

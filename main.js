@@ -11,6 +11,7 @@ const auth = require(__dirname + '/routes/auth');
 const webs = require(__dirname + '/routes/webs');
 const cart = require(__dirname + '/routes/cart');
 const orders = require(__dirname + '/routes/orders');
+const countries = require(__dirname + '/routes/countries');
 
 // Conexión con la BD
 mongoose.connect('mongodb://localhost:27017/proyect',
@@ -20,6 +21,7 @@ let app = express();
 // Carga de middleware y enrutadores
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+app.use('/countries', countries);
 app.use('/user', users);
 app.use('/categories', categories);
 app.use('/products', products);
